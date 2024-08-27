@@ -6,6 +6,8 @@ import './index.css';
 import Home from './pages/Home.jsx';
 import Settings from './pages/Settings.jsx';
 import Game from './pages/Game.jsx';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
   {
     path: '/game',
     element: <Game />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
   },
 ]);
 
