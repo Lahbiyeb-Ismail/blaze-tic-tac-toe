@@ -4,9 +4,31 @@ function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleRegister = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log('Registering:', { username, password });
+
+    const API_URL = import.meta.env.API_URL;
+
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${API_URL}/users/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      console.log('Register:', data);
+    } catch (error) {
+      console.error('Error', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -55,7 +77,8 @@ function Register() {
 
           <button
             type="submit"
-            className="w-full bg-[#0074fc] hover:bg-red-600 text-white py-3 px-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105"
+            className="w-full bg-[#0074fc] hover:bg-red-600 text-white py-3 px-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isLoading}
           >
             Register
           </button>
